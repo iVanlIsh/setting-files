@@ -1,0 +1,57 @@
+git cl upload
+git map-branches -v
+git map-branches -vvv
+git cl issue
+git cl issue 0
+git rebase-update
+git -squash-branch
+git cl upload -t Fixing
+
+// build chrome
+gclient sync
+~/goma/goma_ctl.py ensure_start
+autoninja -C out/Default chrome ( or content ) content_shell ( or blink_tests )
+
+prodaccess
+
+//install ide
+/google/bin/releases/intellij/public/install_ide.sar
+
+dbus-uuidgen --ensure
+
+
+third_party/blink/tools/run_web_tests.py -t Default external/wpt/fetch/metadata --no-retry-failures --fully-parallel
+
+//start a server 
+third_party/blink/tools/run_blink_wptserve.py 
+
+out/Default/content_shell --ignore-certificate-errors --enable-experimental-web-platform-features https://web-platform.test:8444/fetch/metadata/redirect/multiple-redirect-https-downgrade-upgrade.tentative.sub.html
+
+//build config
+gn args out/mybuild
+
+// update goma
+PLATFORM=goobuntu $GOMA_DIR/goma_ctl.py update
+
+//trusted_params
+Moving this into `trusted_params` makes sense to me. We current set it based upon renderer-provided data (`common_params->transition`), but we validate that in https://cs.chromium.org/chromium/src/content/browser/frame_host/ipc_utils.cc?rcl=8b524d37d8d3214d687b4bc331dadb8f508bd3fc&l=165, so I think we can trust the result.
+
+
+#include "base/debug/stack_trace.h"
+followed by:
+base::debug::StackTrace().Print();
+
+git gs
+
+
+// print stack
+RenderFrameImpl::BeginNavigationInternal
+
+
+default value of the trusted argument in a function.
+
+.Utf8().data()
+
+
+// background vpn
+ovpn
